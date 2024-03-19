@@ -16,14 +16,15 @@ vote_limit_write = 1
 
 
 
-options = webdriver.ChromeOptions()
-
-options.add_extension('./captcha-solver.crx')
-
-driver = webdriver.Chrome(options)
 
 while True:
     try:
+                
+        options = webdriver.ChromeOptions()
+
+        options.add_extension('./captcha-solver.crx')
+
+        driver = webdriver.Chrome(options)
         driver.get("https://www.beano.com/posts/britains-funniest-class")
         driver.implicitly_wait(3)
 
