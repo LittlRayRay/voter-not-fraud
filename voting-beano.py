@@ -28,7 +28,7 @@ while True:
                 count += vote_limit_write
                 so_far = 0
                 f = open("votecount.txt", "w")
-                f.write(count)
+                f.write(f"{count}")
         print (count + so_far)
         # wait_until = input("PRESS ENTER TO CONTINUE")
     # except:
