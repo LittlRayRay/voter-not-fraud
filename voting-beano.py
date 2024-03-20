@@ -113,8 +113,10 @@ def instance():
         except KeyboardInterrupt:
             break
         except Exception as e:
-            print("E003: error")
-  
+
+            print("E003: ", e)
+            
+
 if __name__ == "__main__":
     for _ in range(cfg['n_threads']):
         threading.Thread(target=instance).start()
