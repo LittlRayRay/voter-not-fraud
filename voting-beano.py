@@ -68,7 +68,12 @@ def instance():
             # except:
                     # break
 
-                
+            print("####################################")
+            percentages = driver.find_elements(By.CLASS_NAME,"progress--filled")
+
+            for idx,i in enumerate(percentages):
+                print("School",idx, i.get_attribute('style').split(';')[0].split(':')[1])
+
             successes += 1
             if successes % 5 == 0:
                 print(successes, "completed")
