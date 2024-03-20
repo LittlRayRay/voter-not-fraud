@@ -36,12 +36,12 @@ while True:
         time.sleep(2)
 
         div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
-        while True:
-            try:
-                div_element = WebDriverWait(driver, 30).until(EC.visibility_of(div_element))
-                pass
-            except:
-                break
+        # while True:
+            # try:
+        WebDriverWait(driver, 30).until(EC.text_to_be_present_in_element_attribute((By.CSS_SELECTOR, ".beano-poll-v2__question-results"), "style", "block"))
+                # pass
+            # except:
+                # break
 
             
 
