@@ -1,4 +1,3 @@
-import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -34,8 +33,6 @@ def instance():
             cookie_button.click()
             school = driver.find_element(By.XPATH, "//*[@src='https://www.beano.com/wp-content/uploads/2023/03/BFC24_Joke-10.png?strip=all&quality=76&w=434']")
             school.click()
-
-            time.sleep(2)
 
             # div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
             # while True:
