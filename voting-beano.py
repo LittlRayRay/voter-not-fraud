@@ -5,11 +5,21 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+import json
 import time
-
 import threading
+import random
 
-n_threads = 1
+# Load config
+try:
+    with open("cfg.json", mode='r') as cfg_file:
+        cfg = json.load(cfg_file)
+except FileNotFoundError:
+    cfg = {"n_threads": 1, "headless": False, "random_chance": 0.4}
+    with open("cfg.json", mode='w') as cfg_file:
+        json.dump(cfg, cfg_file, indent="    ")
+
 
 #get counter from file
 f = open("votecount.txt")
@@ -24,6 +34,8 @@ def instance():
             options = webdriver.ChromeOptions()
 
             options.add_extension('./captcha-solver.crx')
+            if cfg['headless']:
+                options.add_argument('--headless=new')
 
             driver = webdriver.Chrome(options)
             driver.get("https://www.beano.com/posts/britains-funniest-class")
@@ -31,7 +43,14 @@ def instance():
 
             cookie_button = driver.find_element(By.ID, "onetrust-reject-all-handler")
             cookie_button.click()
-            school = driver.find_element(By.XPATH, "//*[@src='https://www.beano.com/wp-content/uploads/2023/03/BFC24_Joke-10.png?strip=all&quality=76&w=434']")
+
+
+            if random.random() < cfg['random_chance']:
+                # Select a random one
+                schools = driver.find_elements(By.CSS_SELECTOR, '.beano-poll-v2__answer>button')
+                school = random.choice(schools)
+            else:
+                school = driver.find_element(By.XPATH, "//*[@src='https://www.beano.com/wp-content/uploads/2023/03/BFC24_Joke-10.png?strip=all&quality=76&w=434']")
             school.click()
 
             # div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
@@ -40,12 +59,8 @@ def instance():
                 try:
                     element= WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Results')]")))
                     break
-                    print("NE001: Found Element")
-                except Exception as e:
-                    print(f"E001: error on finding element: {e}")
-                    
                 except:
-                    print("E002: something else failed when trying to find element")
+                    pass
 
             # except:
                     # break
@@ -73,5 +88,5 @@ def instance():
              print("E004: failed idk why ")
 
 if __name__ == "__main__":
-    for _ in range(n_threads):
+    for _ in range(cfg['n_threads']):
         threading.Thread(target=instance).start()
