@@ -36,14 +36,16 @@ def instance():
 
             # div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
             # while True:
-            try:
-                element= WebDriverWait(driver, 50).until(EC.presence_of_element_located((By.CLASS_NAME, "check")))
-
-                print("NE001: Found Element")
-            except Exception as e:
-                print(f"E001: error on finding element: {e}")
-            except:
-                print("E002: something else failed when trying to find element")
+            while True:
+                try:
+                    element= WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Results')]")))
+                    break
+                    print("NE001: Found Element")
+                except Exception as e:
+                    print(f"E001: error on finding element: {e}")
+                    
+                except:
+                    print("E002: something else failed when trying to find element")
 
             # except:
                     # break
