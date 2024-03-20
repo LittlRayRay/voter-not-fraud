@@ -27,7 +27,10 @@ count = int(f.read())
 so_far = 0
 vote_limit_write = 5
 
+successes = 0
+
 def instance():
+    global successes
     while True:
         try:
                     
@@ -66,8 +69,9 @@ def instance():
                     # break
 
                 
-
-            time.sleep(2)
+            successes += 1
+            if successes % 5 == 0:
+                print(successes, "completed")
 
             # so_far += 1
             # if so_far == vote_limit_write:
@@ -82,11 +86,8 @@ def instance():
         except KeyboardInterrupt:
             break
         except Exception as e:
-            print("E003: error", e)
-            pass
-        except:
-             print("E004: failed idk why ")
-
+            print("E003: error")
+            
 if __name__ == "__main__":
     for _ in range(cfg['n_threads']):
         threading.Thread(target=instance).start()
