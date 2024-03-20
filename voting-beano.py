@@ -73,6 +73,8 @@ def instance():
             if successes % 5 == 0:
                 print(successes, "completed")
 
+            driver.close()
+
             # so_far += 1
             # if so_far == vote_limit_write:
             #         count += vote_limit_write
