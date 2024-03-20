@@ -35,9 +35,10 @@ while True:
 
         time.sleep(2)
 
+        div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
         while True:
             try:
-                div_element = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "div.refresh.button")))
+                div_element = WebDriverWait(driver, 30).until(EC.visibility_of(div_element))
                 pass
             except:
                 break
