@@ -1,4 +1,3 @@
-import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -34,17 +33,6 @@ while True:
         school.click()
 
         time.sleep(2)
-
-<<<<<<< HEAD
-        div_element = driver.find_element(By.CLASS_NAME, "refresh button")
-        while True:
-            try:
-                div_element = WebDriverWait(driver, 30).until(EC.visibility_of(div_element))
-                pass
-            except:
-                print("not found")
-                break
-=======
         div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
         # while True:
             # try:
@@ -52,7 +40,6 @@ while True:
                 # pass
             # except:
                 # break
->>>>>>> db10c26006adad19894d5a61281bf4d08c3d8b95
 
             
 
