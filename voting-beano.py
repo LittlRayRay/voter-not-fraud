@@ -56,5 +56,8 @@ while True:
                 # wait_until = input("PRESS ENTER TO CONTINUE")
             # except:
             #     pass
-    except:
+    except KeyboardInterrupt:
+        break
+    except Exception as e:
+        print("error", e)
         pass
