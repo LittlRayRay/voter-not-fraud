@@ -24,6 +24,7 @@ def instance():
             options = webdriver.ChromeOptions()
 
             options.add_extension('./captcha-solver.crx')
+            options.add_argument("--headless=new")
 
             driver = webdriver.Chrome(options)
             driver.get("https://www.beano.com/posts/britains-funniest-class")
