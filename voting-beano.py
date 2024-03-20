@@ -30,10 +30,11 @@ vote_limit_write = 5
 successes = 0
 
 def instance():
+    schools_randoms = [1,1,1,1,1,1,1,1,1,1]
     global successes
     while True:
         try:
-                    
+            
             options = webdriver.ChromeOptions()
 
             options.add_extension('./captcha-solver.crx')
@@ -47,11 +48,25 @@ def instance():
             cookie_button = driver.find_element(By.ID, "onetrust-reject-all-handler")
             cookie_button.click()
 
-
+            
             if random.random() < cfg['random_chance']:
                 # Select a random one
                 schools = driver.find_elements(By.CSS_SELECTOR, '.beano-poll-v2__answer>button')
-                school = random.choice(schools)
+                
+                
+                running_total = 0
+                total_sum = sum(schools_randoms)
+                randum_num = random.random()
+				
+                for idx, i in enumerate(schools_randoms):
+                    
+                    running_total += i
+                    
+                    if running_total >= randum_num * total_sum:
+                        school = schools[idx]
+                        break
+                    
+                    #school = random.choice(schools)
             else:
                 school = driver.find_element(By.XPATH, "//*[@src='https://www.beano.com/wp-content/uploads/2023/03/BFC24_Joke-10.png?strip=all&quality=76&w=434']")
             school.click()
@@ -61,6 +76,16 @@ def instance():
             while True:
                 try:
                     element= WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Results')]")))
+                    
+                    if successes % 25 == 0:
+                        print("####################################")
+                        percentages = driver.find_elements(By.CLASS_NAME,"progress--filled")
+                        
+                        for idx,i in enumerate(percentages):
+                            percent_val = i.get_attribute('style').split(';')[0].split(':')[1]
+                            schools_randoms[idx] = 1/(float(percent_val.strip('%'))/100) 
+                            print("School, percentage vote, stratified val", idx,percent_val,schools_randoms[idx])
+                            
                     break
                 except:
                     pass
@@ -68,12 +93,7 @@ def instance():
             # except:
                     # break
 
-            print("####################################")
-            percentages = driver.find_elements(By.CLASS_NAME,"progress--filled")
-
-            for idx,i in enumerate(percentages):
-                print("School",idx, i.get_attribute('style').split(';')[0].split(':')[1])
-
+                
             successes += 1
             if successes % 5 == 0:
                 print(successes, "completed")
@@ -94,7 +114,8 @@ def instance():
             break
         except Exception as e:
             print("E003: error")
-            
+"""           
 if __name__ == "__main__":
     for _ in range(cfg['n_threads']):
-        threading.Thread(target=instance).start()
+        threading.Thread(target=instance).start()"""
+instance()
