@@ -9,7 +9,7 @@ import time
 
 import threading
 
-n_threads = 1
+n_threads = 5
 
 #get counter from file
 f = open("votecount.txt")
@@ -40,11 +40,11 @@ def instance():
             while True:
                 try:
                     element= WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Results')]")))
+                    print("found element")
                     break
-                    print("NE001: Found Element")
                 except Exception as e:
-                    print(f"E001: error on finding element: {e}")
-                    
+                    # print(f"E001: error on finding element: {e}")
+                    pass  
                 except:
                     print("E002: something else failed when trying to find element")
 
