@@ -114,8 +114,8 @@ def instance():
             break
         except Exception as e:
             print("E003: error")
-"""           
+  
 if __name__ == "__main__":
     for _ in range(cfg['n_threads']):
-        threading.Thread(target=instance).start()"""
-instance()
+        threading.Thread(target=instance).start()
+
