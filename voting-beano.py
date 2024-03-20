@@ -35,6 +35,7 @@ while True:
 
         time.sleep(2)
 
+<<<<<<< HEAD
         div_element = driver.find_element(By.CLASS_NAME, "refresh button")
         while True:
             try:
@@ -43,6 +44,15 @@ while True:
             except:
                 print("not found")
                 break
+=======
+        div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
+        # while True:
+            # try:
+        WebDriverWait(driver, 30).until(EC.text_to_be_present_in_element_attribute((By.CSS_SELECTOR, ".beano-poll-v2__question-results"), "style", "block"))
+                # pass
+            # except:
+                # break
+>>>>>>> db10c26006adad19894d5a61281bf4d08c3d8b95
 
             
 
