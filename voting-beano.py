@@ -35,10 +35,10 @@ while True:
 
         time.sleep(2)
 
+        div_element = driver.find_element(By.CLASS_NAME, "refresh button")
         while True:
             try:
-                div_element = WebDriverWait(driver, 30).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "div.refresh.button")))
-                print("found")
+                div_element = WebDriverWait(driver, 30).until(EC.visibility_of(div_element))
                 pass
             except:
                 print("not found")
