@@ -1,5 +1,5 @@
 {
-    "n_threads": 5,
-    "headless": true,
-    "random_chance": 1.0
+    "n_threads": 1,
+    "headless": false,
+    "random_chance": 0.0
 }
