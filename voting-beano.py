@@ -78,22 +78,21 @@ def instance():
 
             # div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
             # while True:
-            while True:
-                try:
-                    element= WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Results')]")))
+            try:
+                element= WebDriverWait(driver, 75).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Results')]")))
+                
+                if successes % 25 == 0:
+                    print("####################################")
+                    percentages = driver.find_elements(By.CLASS_NAME,"progress--filled")
                     
-                    if successes % 25 == 0:
-                        print("####################################")
-                        percentages = driver.find_elements(By.CLASS_NAME,"progress--filled")
+                    for idx,i in enumerate(percentages):
+                        percent_val = i.get_attribute('style').split(';')[0].split(':')[1]
+                        schools_randoms[idx] = 1/(float(percent_val.strip('%'))/100) 
+                        print("School, percentage vote, stratified val", idx,percent_val,schools_randoms[idx])
                         
-                        for idx,i in enumerate(percentages):
-                            percent_val = i.get_attribute('style').split(';')[0].split(':')[1]
-                            schools_randoms[idx] = 1/(float(percent_val.strip('%'))/100) 
-                            print("School, percentage vote, stratified val", idx,percent_val,schools_randoms[idx])
-                            
-                    break
-                except:
-                    pass
+                break
+            except:
+                pass
 
             # except:
                     # break
