@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from pyvirtualdisplay import Display
 import json
 import time
 import threading
@@ -33,14 +33,19 @@ def instance():
     schools_randoms = [1,1,1,1,1,1,1,1,1,1]
     global successes
     while True:
+        
+        # proxy = "185.245.80.156:3128"
+
         try:
             
             options = webdriver.ChromeOptions()
-
+            webdriver.DesiredCapabilities.CHROME['acceptInsecureCerts']=True
             options.add_extension('./captcha-solver.crx')
+            # options.add_argument(f'--proxy-server=http://' + str(proxy))
             if cfg['headless']:
                 options.add_argument('--headless=new')
-
+            # display = Display(visible=0, size=(800, 800))
+            # display.start()
             driver = webdriver.Chrome(options)
             driver.get("https://www.beano.com/posts/britains-funniest-class")
             driver.implicitly_wait(3)
@@ -95,8 +100,8 @@ def instance():
 
                 
             successes += 1
-            if successes % 5 == 0:
-                print(successes, "completed")
+            # if successes % 5 == 0:
+            print(successes, "completed")
 
             driver.close()
 
