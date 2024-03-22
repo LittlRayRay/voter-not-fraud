@@ -5,7 +5,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from pyvirtualdisplay import Display
 import json
 import time
 import threading
@@ -44,8 +43,7 @@ def instance():
             # options.add_argument(f'--proxy-server=http://' + str(proxy))
             if cfg['headless']:
                 options.add_argument('--headless=new')
-            # display = Display(visible=0, size=(800, 800))
-            # display.start()
+
             driver = webdriver.Chrome(options)
             driver.get("https://www.beano.com/posts/britains-funniest-class")
             driver.implicitly_wait(3)
