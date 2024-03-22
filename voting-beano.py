@@ -47,10 +47,10 @@ def instance():
             driver = webdriver.Chrome(options)
             driver.get("https://www.beano.com/posts/britains-funniest-class")
             driver.implicitly_wait(3)
-
+            time.sleep(2)
             cookie_button = driver.find_element(By.ID, "onetrust-reject-all-handler")
             cookie_button.click()
-
+            time.sleep(2)
             
             if random.random() < cfg['random_chance']:
                 # Select a random one
@@ -77,7 +77,14 @@ def instance():
             # div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
             # while True:
             try:
+                time.sleep(3)
                 element= WebDriverWait(driver, 75).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Results')]")))
+                successes += 1
+                # if successes % 5 == 0:
+                print(successes, "completed")
+                time.sleep(2)
+                driver.close()
+
                 
                 if successes % 25 == 0:
                     print("####################################")
@@ -88,7 +95,7 @@ def instance():
                         schools_randoms[idx] = 1/(float(percent_val.strip('%'))/100) 
                         print("School, percentage vote, stratified val", idx,percent_val,schools_randoms[idx])
                         
-                break
+                pass
             except:
                 pass
 
@@ -96,11 +103,6 @@ def instance():
                     # break
 
                 
-            successes += 1
-            # if successes % 5 == 0:
-            print(successes, "completed")
-
-            driver.close()
 
             # so_far += 1
             # if so_far == vote_limit_write:
