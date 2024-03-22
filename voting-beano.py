@@ -20,12 +20,6 @@ except FileNotFoundError:
         json.dump(cfg, cfg_file, indent="    ")
 
 
-#get counter from file
-f = open("votecount.txt")
-count = int(f.read())
-so_far = 0
-vote_limit_write = 5
-
 successes = 0
 
 def instance():
@@ -69,18 +63,14 @@ def instance():
                         school = schools[idx]
                         break
                     
-                    #school = random.choice(schools)
             else:
                 school = driver.find_element(By.XPATH, "//*[@src='https://www.beano.com/wp-content/uploads/2023/03/BFC24_Joke-10.png?strip=all&quality=76&w=434']")
             school.click()
 
-            # div_element = driver.find_element(By.CSS_SELECTOR, ".beano-poll-v2__question-results")
-            # while True:
             try:
                 time.sleep(3)
                 element= WebDriverWait(driver, 75).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Results')]")))
                 successes += 1
-                # if successes % 5 == 0:
                 print(successes, "completed")
                 time.sleep(2)
                 driver.close()
@@ -94,34 +84,14 @@ def instance():
                         percent_val = i.get_attribute('style').split(';')[0].split(':')[1]
                         schools_randoms[idx] = 1/(float(percent_val.strip('%'))/100) 
                         print("School, percentage vote, stratified val", idx,percent_val,schools_randoms[idx])
-                        
-                pass
             except:
                 pass
-
-            # except:
-                    # break
-
-                
-
-            # so_far += 1
-            # if so_far == vote_limit_write:
-            #         count += vote_limit_write
-            #         so_far = 0
-            #         f = open("votecount.txt", "w")
-            #         f.write(f"{count}")
-            # print (count + so_far)
-                    # wait_until = input("PRESS ENTER TO CONTINUE")
-                # except:
-                #     pass
         except KeyboardInterrupt:
             break
         except Exception as e:
-
-            print("E003: ", e)
+            print("Error: ", e)
             
 
 if __name__ == "__main__":
     for _ in range(cfg['n_threads']):
         threading.Thread(target=instance).start()
-
