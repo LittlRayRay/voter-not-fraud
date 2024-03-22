@@ -48,7 +48,7 @@ def instance():
             cookie_button.click()
 
 
-            if random.random() < cfg['random_chance']:
+            if cfg['random_chance'] and random.random() < cfg['random_chance']:
                 # Select a random one
                 schools = driver.find_elements(By.CSS_SELECTOR, '.beano-poll-v2__answer>button')
                 school = random.choice(schools)
