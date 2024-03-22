@@ -1,4 +1,6 @@
 import requests
+import schedule
+import time
 from gforms import Form
 from gforms.elements import Short, Value
 
@@ -32,4 +34,12 @@ def submit_data():
 	form.fill(callback)
 	form.submit()
 
+	print(f"Submitted data for {time.time()}!")
+
 schedule.every(20).minutes.do(submit_data)
+
+print("Ready!")
+submit_data()
+while True:
+	schedule.run_pending()
+	time.sleep(10)
