@@ -64,7 +64,7 @@ def instance():
                         break
                     
             else:
-                school = driver.find_element(By.XPATH, "//*[@src='https://www.beano.com/wp-content/uploads/2023/03/BFC24_Joke-10.png?strip=all&quality=76&w=434']")
+                school = driver.find_element(By.XPATH, "/html/body/div[2]/div[2]/main/div[2]/div[1]/div/div[1]/article/div/div[2]/div[1]/div[9]/figure/img")
             school.click()
 
             try:
